@@ -4,15 +4,19 @@ $this->title = 'My Yii Application';
 use common\models;
 ?>
 <div class="site-index">
-
-<p> Willkommen, 
-<br>
 <?php
+	echo nl2br("Willkommen, \n");
  if (Yii::$app->user->getIsGuest())
                         {
-						print("Bitte anmelden, Sie sind Gast");
+						print('Sie sind angemeldet als ');
+						echo nl2br("Gast \n");
+						print ('Bitte melden Sie sich an');
 						}
-						
+						else
+						{
+						print('Sie sind angemeldet als ');
+						print(Yii::$app->user->identity->username);
+						}
 ?>
 
     <div class="jumbotron">
