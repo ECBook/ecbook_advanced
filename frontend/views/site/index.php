@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = 'My Yii Application';
+$this->title = 'ECBook- elektronisches Klassenbuch';
 use common\models;
 ?>
 <div class="site-index">
@@ -9,13 +9,13 @@ use common\models;
  if (Yii::$app->user->getIsGuest())
                         {
 						print('Sie sind angemeldet als ');
-						echo nl2br("Gast \n");
-						print ('Bitte melden Sie sich an');
+						echo nl2br("<b> Gast </b>\n");
+						print ('<b>Bitte melden Sie sich an!</b>');
 						}
 						else
 						{
 						print('Sie sind angemeldet als ');
-						print(Yii::$app->user->identity->username);
+						print("<b> <a href=index.php?r=site%2Finformation>" . Yii::$app->user->identity->username . "</a></b>");
 						}
 ?>
 

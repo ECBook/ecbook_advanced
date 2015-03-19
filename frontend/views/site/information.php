@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = 'My Yii Application';
+$this->title = 'Benutzerinformation';
+$this->params['breadcrumbs'][] = $this->title;
 use common\models;
 ?>
 <div class="site-index">
