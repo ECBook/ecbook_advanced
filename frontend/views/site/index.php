@@ -15,7 +15,9 @@ use common\models;
 						else
 						{
 						print('Sie sind angemeldet als ');
-						print("<b> <a href=index.php?r=site%2Finformation>" . Yii::$app->user->identity->username . "</a></b>");
+						echo nl2br("<b> <a href=index.php?r=site%2Finformation>" . Yii::$app->user->identity->username . "</a></b>\n");
+						echo nl2br("Ihre Prüfungen einsehen\n");
+						
 						}
 ?>
 

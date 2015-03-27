@@ -1,3 +1,12 @@
+Wichtig: 
+
+Datenbank SQL File ist in dem Database++ Ordner
+
+Änderen des Datenbankpfades in : \common\config\main-local.php
+
+
+
+
 Yii 2 Advanced Application Template
 ===================================
 

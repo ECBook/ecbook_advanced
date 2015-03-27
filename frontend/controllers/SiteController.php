@@ -174,5 +174,13 @@ class SiteController extends Controller
 	 return $this->render('information');
 	}
 	
+	public function actionPruefung()
+	{
+	 return $this->render('pruefung');
+	}
 	
+	public function actionFehlstunden()
+	{
+	 return $this->render('fehlstunden');
+	}
 }
