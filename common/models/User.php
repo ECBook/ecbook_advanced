@@ -6,6 +6,8 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use frontend\models\Benutzergruppe;
+use yii\helpers\ArrayHelper;
 
 /**
  * User model
@@ -184,5 +186,25 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+	
+	public function getRole()
+	{
+	return $this->hasOne(benutzergruppe::className(), ['bg_value' => 'bg_id']);
+	}
+	
+	// Benutzergruppen Namen holen 
+        
+    public function getRoleName()
+    {
+        return $this->benutzergruppe ? $this->benutzergruppe->bg_name : '- no role -';
+    }
+    
+       // Benutzergruppen dopdownlist
+        
+    public static function getRoleList()
+    {
+        $droptions = benutzergruppe::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'bg_value', 'bg_name');
     }
 }

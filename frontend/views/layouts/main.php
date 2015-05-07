@@ -5,6 +5,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
+use common\models\ValueHelpers;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -25,6 +26,13 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
     <div class="wrap">
         <?php
+		
+		//Benutzerrechteverwalung (Eltern wurde aussen vor gelassen da
+		// sie eigentlich die gleichen Rechte wie Schüler haben.)
+		$is_lehrer = ValueHelpers::getRoleValue('Lehrer');
+		$is_schueler = ValueHelpers::getRoleValue('Schüler');
+		$is_eltern = ValueHelpers::getRoleValue('Eltern');
+		
             NavBar::begin([
                 'brandLabel' => 'ECBook - elektronisches Klassenbuch',
                 'brandUrl' => Yii::$app->homeUrl,
@@ -34,19 +42,23 @@ AppAsset::register($this);
 
             ]);
 			
-			//test
-			//
-            $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
+			
+            // $menuItems = [
+                // ['label' => 'Home', 'url' => ['/site/index']],
+                // ['label' => 'About', 'url' => ['/site/about']],
+                // ['label' => 'Contact', 'url' => ['/site/contact']],
 			   
-            ];
+            //];
             if (Yii::$app->user->isGuest) {
                 $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 			//	$menuItems[] = ['label' => 'Admin-Login', 'url' =>\Yii::$app->urlManagerBackEnd->baseUrl];
-            } else {
+            } 
+			
+			// Wenn als lehrer angemeldet erfolgt zugriff auf folgende seiten
+			if (!Yii::$app->user->isGuest 
+			&& Yii::$app->user->identity->benutzergruppe == $is_lehrer)
+			{
 				$menuItems[] =['label' => 'Information', 'url' => ['/site/information']];
 				$menuItems[] =['label' => 'Fehlstunden', 'url' => ['/site/fehlstunden']];
 				$menuItems[] =['label' => 'Pruefung', 'url' => ['/site/pruefung']];
@@ -55,7 +67,21 @@ AppAsset::register($this);
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
+			
             }
+			
+			// Wenn als schüler angemeldet erfolgt zugriff auf folgende seiten
+			if (!Yii::$app->user->isGuest 
+			&& Yii::$app->user->identity->benutzergruppe == $is_schueler)
+			{
+				$menuItems[] =['label' => 'Fehlstunden', 'url' => ['/site/fehlstunden']];
+				$menuItems[] =['label' => 'Pruefung', 'url' => ['/site/pruefung']];
+                $menuItems[] = [
+                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'url' => ['/site/logout'],
+                    'linkOptions' => ['data-method' => 'post']
+                ];
+			}
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,
