@@ -4,10 +4,10 @@ return [
     'components' => [
 	
 	//Edit URLManager MAYLAS
-	 'urlManager' => [
-          'showScriptName' => false,
-          'enablePrettyUrl' => true
-                  ],   
+	 //'urlManager' => [
+         // 'showScriptName' => false,
+        //  'enablePrettyUrl' => true
+         //         ],   
 		// 'urlManagerFrontEnd' => [
             // 'class' => 'yii\web\urlManager',
             // 'baseUrl' => '/ecbook_advanced/frontend/web',
